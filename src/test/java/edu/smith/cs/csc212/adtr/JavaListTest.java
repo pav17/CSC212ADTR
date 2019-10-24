@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
+import javax.print.DocFlavor.STRING;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -113,7 +115,12 @@ public class JavaListTest {
 		assertEquals(3, data.size());
 	}
 	
-	// TODO test addIndex methods.
+	@Test
+	public void testAddIndexFront() {
+		ListADT<String> data = makeFullList();
+		data.addIndex(0, "indexTest");
+		assertEquals("indexTest", data.getIndex(0));
+	}
 	
 	@Test
 	public void testAddIndexMiddle() {
@@ -190,6 +197,39 @@ public class JavaListTest {
 	}
 	
 	// TODO write some tests for setIndex.
+	
+	@Test(expected=BadIndexError.class)
+	public void testSetIndexLow() {
+		ListADT<String> data = makeFullList();
+		data.setIndex(-1, "test");
+	}
+	
+	@Test(expected=BadIndexError.class)
+	public void testSetIndexHigh() {
+		ListADT<String> data = makeFullList();
+		data.setIndex(6, "test");
+	}
+	
+	@Test
+	public void testSetIndexFront() {
+		ListADT<String> data = makeFullList();
+		data.setIndex(0, "test");
+		assertEquals("test", data.getIndex(0));
+	}
+	
+	@Test
+	public void testSetIndexBack() {
+		ListADT<String> data = makeFullList();
+		data.setIndex(3, "test");
+		assertEquals("test", data.getIndex(3));
+	}
+	
+	@Test
+	public void testSetIndexMiddle() {
+		ListADT<String> data = makeFullList();
+		data.setIndex(1, "test");
+		assertEquals("test", data.getIndex(1));
+	}
 	
 	@Test
 	public void testToJava() {
